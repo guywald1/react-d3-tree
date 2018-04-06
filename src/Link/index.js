@@ -12,6 +12,8 @@ export default class Link extends React.PureComponent {
         opacity: 0,
       },
     };
+
+    console.log(props);
   }
 
   componentDidMount() {
