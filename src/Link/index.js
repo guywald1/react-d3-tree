@@ -12,8 +12,6 @@ export default class Link extends React.PureComponent {
         opacity: 0,
       },
     };
-
-    console.log(props);
   }
 
   componentDidMount() {
@@ -91,13 +89,13 @@ export default class Link extends React.PureComponent {
   }
 
   render() {
-    const { styles } = this.props;
+    const { styles, linkData } = this.props;
     return (
       <path
         ref={l => {
           this.link = l;
         }}
-        style={{ ...this.state.initialStyle, ...styles }}
+        style={{ ...this.state.initialStyle, ...styles, ...linkData.target.linkStyles }}
         className="linkBase"
         d={this.drawPath()}
       />
