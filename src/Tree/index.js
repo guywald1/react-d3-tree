@@ -229,6 +229,7 @@ export default class Tree extends React.Component {
       this.handleOnClickCb(targetNode, evt);
     }
     this.props.onNodeToggle(nodeId);
+    this.forceUpdate();
   }
 
   /**
