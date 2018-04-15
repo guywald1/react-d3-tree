@@ -228,6 +228,7 @@ export default class Tree extends React.Component {
     } else {
       this.handleOnClickCb(targetNode, evt);
     }
+    this.props.onNodeToggle(nodeId);
   }
 
   /**
@@ -443,6 +444,7 @@ Tree.defaultProps = {
   allowForeignObjects: false,
   circleRadius: undefined, // TODO: DEPRECATE
   styles: {},
+  onNodeToggle: () => {},
 };
 
 Tree.propTypes = {
@@ -490,4 +492,5 @@ Tree.propTypes = {
     nodes: PropTypes.object,
     links: PropTypes.object,
   }),
+  onNodeToggle: PropTypes.func,
 };
