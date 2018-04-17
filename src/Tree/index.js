@@ -385,31 +385,42 @@ export default class Tree extends React.Component {
               />
             ))}
 
-            {nodes.map(nodeData => (
-              <Node
-                key={nodeData.id}
-                nodeSvgShape={{
-                  ...nodeSvgShape,
-                  ...nodeData.nodeSvgShape,
-                  ...(nodeData._collapsed ? nodeSvgShapeCollapsedOverride || {} : {}),
-                }}
-                nodeLabelComponent={nodeLabelComponent}
-                nodeSize={nodeSize}
-                orientation={orientation}
-                transitionDuration={transitionDuration}
-                nodeData={nodeData}
-                name={nodeData.name}
-                attributes={nodeData.attributes}
-                onClick={this.handleNodeToggle}
-                onMouseOver={this.handleOnMouseOverCb}
-                onMouseOut={this.handleOnMouseOutCb}
-                textLayout={textLayout}
-                circleRadius={circleRadius}
-                subscriptions={subscriptions}
-                allowForeignObjects={allowForeignObjects}
-                styles={styles.nodes}
-              />
-            ))}
+            {nodes.map(nodeData => {
+              let nodeSvgShapeProp = {
+                ...nodeSvgShape,
+                ...nodeData.nodeSvgShape,
+              };
+              if (nodeData._collapsed) {
+                nodeSvgShapeProp = {
+                  shape: nodeSvgShapeCollapsedOverride.shape || nodeSvgShapeProp.shape,
+                  shapeProps: {
+                    ...nodeSvgShapeProp.shapeProps,
+                    ...nodeSvgShapeCollapsedOverride.shapeProps,
+                  },
+                };
+              }
+              return (
+                <Node
+                  key={nodeData.id}
+                  nodeSvgShape={nodeSvgShapeProp}
+                  nodeLabelComponent={nodeLabelComponent}
+                  nodeSize={nodeSize}
+                  orientation={orientation}
+                  transitionDuration={transitionDuration}
+                  nodeData={nodeData}
+                  name={nodeData.name}
+                  attributes={nodeData.attributes}
+                  onClick={this.handleNodeToggle}
+                  onMouseOver={this.handleOnMouseOverCb}
+                  onMouseOut={this.handleOnMouseOutCb}
+                  textLayout={textLayout}
+                  circleRadius={circleRadius}
+                  subscriptions={subscriptions}
+                  allowForeignObjects={allowForeignObjects}
+                  styles={styles.nodes}
+                />
+              );
+            })}
           </TransitionGroup>
         </svg>
       </div>
@@ -462,6 +473,7 @@ Tree.propTypes = {
   }),
   nodeSvgShapeCollapsedOverride: PropTypes.shape({
     shape: PropTypes.string,
+    shapeProps: PropTypes.object,
   }),
   nodeLabelComponent: PropTypes.object,
   onClick: PropTypes.func,
