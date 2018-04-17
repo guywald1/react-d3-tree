@@ -387,7 +387,11 @@ export default class Tree extends React.Component {
             {nodes.map(nodeData => (
               <Node
                 key={nodeData.id}
-                nodeSvgShape={{ ...nodeSvgShape, ...nodeData.nodeSvgShape }}
+                nodeSvgShape={{
+                  ...nodeSvgShape,
+                  ...nodeData.nodeSvgShape,
+                  ...(nodeData._collapsed ? nodeData.nodeSvgShapeCollaped || {} : {}),
+                }}
                 nodeLabelComponent={nodeLabelComponent}
                 nodeSize={nodeSize}
                 orientation={orientation}
