@@ -347,6 +347,7 @@ export default class Tree extends React.Component {
     const { nodes, links } = this.generateTree();
     const {
       nodeSvgShape,
+      nodeSvgShapeCollapsedOverride,
       nodeLabelComponent,
       orientation,
       pathFunc,
@@ -390,7 +391,7 @@ export default class Tree extends React.Component {
                 nodeSvgShape={{
                   ...nodeSvgShape,
                   ...nodeData.nodeSvgShape,
-                  ...(nodeData._collapsed ? nodeData.nodeSvgShapeCollaped || {} : {}),
+                  ...(nodeData._collapsed ? nodeSvgShapeCollapsedOverride || {} : {}),
                 }}
                 nodeLabelComponent={nodeLabelComponent}
                 nodeSize={nodeSize}
@@ -423,6 +424,7 @@ Tree.defaultProps = {
       r: 10,
     },
   },
+  nodeSvgShapeCollapsedOverride: {},
   nodeLabelComponent: null,
   onClick: undefined,
   onMouseOver: undefined,
@@ -457,6 +459,9 @@ Tree.propTypes = {
   nodeSvgShape: PropTypes.shape({
     shape: PropTypes.string,
     shapeProps: PropTypes.object,
+  }),
+  nodeSvgShapeCollapsedOverride: PropTypes.shape({
+    shape: PropTypes.string,
   }),
   nodeLabelComponent: PropTypes.object,
   onClick: PropTypes.func,
