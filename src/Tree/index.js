@@ -390,7 +390,7 @@ export default class Tree extends React.Component {
                 ...nodeSvgShape,
                 ...nodeData.nodeSvgShape,
               };
-              if (nodeData._collapsed) {
+              if (nodeData._collapsed && nodeData.children) {
                 nodeSvgShapeProp = {
                   shape: nodeSvgShapeCollapsedOverride.shape || nodeSvgShapeProp.shape,
                   shapeProps: {
