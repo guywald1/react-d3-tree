@@ -138,7 +138,7 @@ export default class Tree extends React.Component {
   assignInternalProperties(data) {
     return data.map(node => {
       node.id = uuid.v4();
-      node._collapsed = false;
+      node._collapsed = node._metaCollapsed || false;
       // if there are children, recursively assign properties to them too
       if (node.children && node.children.length > 0) {
         node.children = this.assignInternalProperties(node.children);
